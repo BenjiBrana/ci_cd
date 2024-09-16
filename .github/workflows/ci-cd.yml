@@ -26,10 +26,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t mon-projet-html-css .
+        run: docker build -t ci_cd .
 
       - name: Push Docker image
-        run: docker push mon-projet-html-css
+        run: docker push ci_cd
 
       - name: Deploy to Production
         run: |
