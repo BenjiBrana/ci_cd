@@ -1,22 +1,18 @@
-image: docker:latest
-
-services:
-  - docker:dind
+image: alpine
 
 stages:
   - build
   - deploy
 
-before_script:
-  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-
-build:
-  stage: build
-  script:
-    - docker build -t $CI_REGISTRY_IMAGE:latest .
-    - docker push $CI_REGISTRY_IMAGE:latest
-
-deploy:
+pages:
   stage: deploy
   script:
-    - echo "Deploy to production (e.g., SSH into server or deploy to cloud)"
+    # Créer un répertoire public et copier tous les fichiers dedans
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
